@@ -3,8 +3,12 @@ use std::io::prelude::*;
 use std::net::TcpListener;
 use std::net::TcpStream;
 
+//const ADDR: &str = "127.0.0.1:7878";
+
 fn main() {
     let listener = TcpListener::bind("127.0.0.1:7878").unwrap();
+
+    //println!("Your server is running on: {:?}", String::try_from(listener.local_addr()));
 
     for stream in listener.incoming() {
         let stream = stream.unwrap();
@@ -23,6 +27,7 @@ fn handle_connection(mut stream: TcpStream) {
     // read data if there is any sent from the client
     stream.read(&mut buffer).unwrap();
 
+    // create header and file content
     let contents = fs::read_to_string("hello.html").unwrap();
 
     println!("Request: {}", String::from_utf8_lossy(&buffer[..]));
