@@ -8,7 +8,7 @@ use std::net::TcpStream;
 fn main() {
     let listener = TcpListener::bind("127.0.0.1:7878").unwrap();
 
-    //println!("Your server is running on: {:?}", String::try_from(listener.local_addr()));
+    println!("Your server is running on: {:?}", listener);
 
     for stream in listener.incoming() {
         let stream = stream.unwrap();
