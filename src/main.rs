@@ -6,9 +6,19 @@ use std::net::TcpStream;
 //const ADDR: &str = "127.0.0.1:7878";
 
 fn main() {
-    let listener = TcpListener::bind("127.0.0.1:7878").unwrap();
+    let listener = match TcpListener::bind("127.0.0.1:7878") {
+        Ok(v) => {
+            println!("Sever started on {:?}", v.local_addr());
+            v
+        }
+        Err(e) => {
+            println!("Error: {}", e.to_string());
+            return;
+        }
+    };
+    
 
-    println!("Your server is running on: {:?}", listener);
+    //println!("Your server is running on: {:?}", listener);
 
     for stream in listener.incoming() {
         let stream = stream.unwrap();
